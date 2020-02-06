@@ -109,6 +109,21 @@
                     </GhFormGroup>
                 {{/unless}}
 
+                <GhFormGroup @errors={{this.post.errors}} @hasValidated={{this.post.hasValidated}} @property="external_authors">
+                                    <label for="external-authors">External Authors</label>
+                    <GhTextInput
+                        @class="post-setting-external-authors"
+                        @id="external-authors"
+                        @name="post-setting-external-authors"
+                        @value={{readonly this.externalAuthorsScratch}}
+                        @input={{action (mut this.externalAuthorsScratch) value="target.value"}}
+                        @focus-out={{action "setExternalAuthors" this.externalAuthorsScratch}}
+                        @stopEnterKeyDownPropagation={{true}}
+                        data-test-field="meta-title" />
+                    <p>Recommended: <b>100</b> characters. You’ve used {{gh-count-down-characters this.externalAuthorsScratch 100}}</p>
+                    <GhErrorMessage @errors={{this.post.errors}} @property="meta-title" />
+                </GhFormGroup>
+
                 <ul class="nav-list nav-list-block">
                     <li class="nav-list-item" {{action "showSubview" "meta-data"}} data-test-button="meta-data">
                         <button type="button">

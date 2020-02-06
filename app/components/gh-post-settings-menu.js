@@ -34,6 +34,7 @@ export default Component.extend(SettingsMenuMixin, {
     codeinjectionHeadScratch: alias('post.codeinjectionHeadScratch'),
     metaDescriptionScratch: alias('post.metaDescriptionScratch'),
     metaTitleScratch: alias('post.metaTitleScratch'),
+    externalAuthorsScratch: alias('post.externalAuthorsScratch'),
     ogDescriptionScratch: alias('post.ogDescriptionScratch'),
     ogTitleScratch: alias('post.ogTitleScratch'),
     twitterDescriptionScratch: alias('post.twitterDescriptionScratch'),
@@ -260,6 +261,29 @@ export default Component.extend(SettingsMenuMixin, {
 
             // Make sure the meta title is valid and if so, save it into the post
             return post.validate({property: 'metaTitle'}).then(() => {
+                if (post.get('isNew')) {
+                    return;
+                }
+
+                return this.savePost.perform();
+            });
+        },
+
+        setExternalAuthors(authors) {
+            // Grab the post and current stored meta title
+            let post = this.post;
+            let currentAuthors = post.get('externalAuthors');
+
+            // If the title entered matches the stored meta title, do nothing
+            if (currentAuthors === authors) {
+                return;
+            }
+
+            // If the title entered is different, set it as the new meta title
+            post.set('externalAuthors', authors);
+
+            // Make sure the meta title is valid and if so, save it into the post
+            return post.validate({property: 'externalAuthors'}).then(() => {
                 if (post.get('isNew')) {
                     return;
                 }

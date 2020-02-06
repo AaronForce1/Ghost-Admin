@@ -108,6 +108,7 @@ export default Model.extend(Comparable, ValidationEngine, {
     sendEmailWhenPublished: attr('boolean', {defaultValue: false}),
 
     authors: hasMany('user', {embedded: 'always', async: false}),
+    externalAuthors: attr('string'),
     createdBy: belongsTo('user', {async: true}),
     email: belongsTo('email', {async: false}),
     publishedBy: belongsTo('user', {async: true}),
@@ -135,6 +136,7 @@ export default Model.extend(Comparable, ValidationEngine, {
     codeinjectionHeadScratch: boundOneWay('codeinjectionHead'),
     metaDescriptionScratch: boundOneWay('metaDescription'),
     metaTitleScratch: boundOneWay('metaTitle'),
+    externalAuthorsScratch: boundOneWay('externalAuthors'),
     ogDescriptionScratch: boundOneWay('ogDescription'),
     ogTitleScratch: boundOneWay('ogTitle'),
     twitterDescriptionScratch: boundOneWay('twitterDescription'),
